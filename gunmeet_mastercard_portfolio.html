@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gunmeet Singh — Security Analyst | Mastercard Application</title>
+<link href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --mc-red: #EB001B;
+  --mc-orange: #FF5F00;
+  --mc-yellow: #F79E1B;
+  --black: #1A1A1A;
+  --off-black: #222222;
+  --surface: #F7F5F2;
+  --white: #FFFFFF;
+  --gray: #6B6B6B;
+  --light-gray: #E8E4DF;
+  --border: #D9D4CC;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--white); color: var(--black); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 200;
+  background: var(--black);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 4rem;
+  height: 64px;
+}
+
+.nav-brand {
+  display: flex; align-items: center; gap: 1rem;
+}
+
+/* Mastercard logo circles */
+.mc-logo {
+  display: flex; position: relative; width: 44px; height: 28px;
+}
+.mc-circle-r {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--mc-red);
+  position: absolute; left: 0;
+}
+.mc-circle-y {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--mc-yellow);
+  position: absolute; right: 0;
+}
+.mc-circle-o {
+  position: absolute; left: 8px; top: 0;
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--mc-orange); opacity: 0.9;
+}
+
+.nav-name {
+  font-size: 0.85rem; font-weight: 600; color: var(--white);
+  letter-spacing: 0.04em;
+}
+
+.nav-role {
+  font-size: 0.7rem; color: rgba(255,255,255,0.5);
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-size: 0.8rem; color: rgba(255,255,255,0.6);
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: color 0.2s; font-weight: 500;
+}
+.nav-links a:hover { color: var(--mc-yellow); }
+
+.nav-cta {
+  background: var(--mc-red);
+  color: var(--white) !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2px;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: #c5001a !important; color: var(--white) !important; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  background: var(--black);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mastercard giant circles background */
+.hero-circles {
+  position: absolute; right: -100px; top: 50%; transform: translateY(-50%);
+  width: 700px; height: 700px;
+  pointer-events: none;
+}
+.hero-circle-r {
+  width: 500px; height: 500px; border-radius: 50%;
+  background: var(--mc-red);
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  opacity: 0.92;
+}
+.hero-circle-y {
+  width: 500px; height: 500px; border-radius: 50%;
+  background: var(--mc-yellow);
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  opacity: 0.92;
+}
+.hero-circle-blend {
+  position: absolute; left: 100px; top: 50%; transform: translateY(-50%);
+  width: 500px; height: 500px; border-radius: 50%;
+  background: var(--mc-orange);
+  opacity: 0.6;
+}
+
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 8rem 4rem 4rem;
+  position: relative; z-index: 2;
+}
+
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.7rem; font-weight: 600; color: var(--mc-yellow);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  margin-bottom: 1.5rem;
+}
+.hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mc-yellow); }
+
+.hero-h1 {
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 700; line-height: 1;
+  color: var(--white);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+.hero-h1-name { color: var(--white); }
+.hero-h1-sub {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  color: rgba(255,255,255,0.35);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+}
+
+.hero-desc {
+  font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.75;
+  max-width: 440px; margin-bottom: 2.5rem; font-weight: 400;
+}
+
+.hero-desc strong { color: var(--mc-yellow); font-weight: 600; }
+
+.hero-applying-for {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: 3px solid var(--mc-red);
+  padding: 1rem 1.5rem;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  max-width: 440px;
+}
+.applying-label {
+  font-size: 0.65rem; color: var(--mc-yellow); text-transform: uppercase;
+  letter-spacing: 0.14em; font-weight: 600; margin-bottom: 0.4rem;
+}
+.applying-role {
+  font-size: 0.95rem; color: var(--white); font-weight: 600;
+}
+.applying-loc { font-size: 0.78rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn-red {
+  background: var(--mc-red);
+  color: var(--white);
+  padding: 0.85rem 2rem;
+  font-size: 0.85rem; font-weight: 700;
+  text-decoration: none; border-radius: 2px;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-red:hover { background: #c5001a; transform: translateY(-2px); }
+
+.btn-outline {
+  border: 1px solid rgba(255,255,255,0.25);
+  color: var(--white); padding: 0.85rem 2rem;
+  font-size: 0.85rem; font-weight: 500;
+  text-decoration: none; border-radius: 2px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--mc-yellow); color: var(--mc-yellow); transform: translateY(-2px); }
+
+.hero-right {
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-end;
+  padding: 8rem 4rem 4rem;
+  position: relative; z-index: 2;
+}
+
+.hero-stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px; overflow: hidden;
+  width: 320px;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.04);
+  padding: 1.5rem;
+  transition: background 0.2s;
+}
+.hero-stat:hover { background: rgba(255,255,255,0.08); }
+.stat-num {
+  font-size: 2.2rem; font-weight: 700; color: var(--white);
+  letter-spacing: -0.04em; line-height: 1;
+}
+.stat-label { font-size: 0.7rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.4rem; }
+.stat-accent { color: var(--mc-yellow); }
+
+/* ── WHY MASTERCARD SECTION ── */
+#why-mc {
+  background: var(--mc-red);
+  padding: 4rem;
+}
+.why-mc-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: center;
+}
+.why-mc-title {
+  font-size: 2rem; font-weight: 700; color: var(--white); line-height: 1.15;
+}
+.why-mc-title span { color: rgba(255,255,255,0.4); }
+.why-mc-points { display: flex; flex-direction: column; gap: 1rem; }
+.why-point {
+  background: rgba(255,255,255,0.1);
+  padding: 1rem 1.5rem;
+  border-radius: 2px;
+  border-left: 3px solid var(--mc-yellow);
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.why-point-icon { font-size: 1.1rem; min-width: 24px; margin-top: 1px; }
+.why-point-text { font-size: 0.9rem; color: rgba(255,255,255,0.9); line-height: 1.5; }
+.why-point-text strong { color: var(--white); font-weight: 600; }
+
+/* ── SECTION STYLES ── */
+.section-wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 4rem; }
+
+.section-eyebrow {
+  font-size: 0.68rem; font-weight: 700; color: var(--mc-red);
+  text-transform: uppercase; letter-spacing: 0.16em;
+  margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem;
+}
+.section-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--mc-red); }
+
+.section-title {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 700; color: var(--black);
+  line-height: 1.1; margin-bottom: 3rem;
+  letter-spacing: -0.02em;
+}
+
+/* ── EXPERIENCE ── */
+#experience { background: var(--surface); }
+
+.exp-grid { display: flex; flex-direction: column; gap: 1.5px; }
+
+.exp-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--light-gray);
+  padding: 2rem 2.5rem;
+  transition: border-left-color 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+.exp-card:hover {
+  border-left-color: var(--mc-red);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+.exp-card.featured { border-left-color: var(--mc-red); }
+
+.exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+.exp-company {
+  font-size: 0.68rem; font-weight: 700; color: var(--mc-red);
+  text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.3rem;
+}
+.exp-role { font-size: 1.1rem; font-weight: 700; color: var(--black); }
+.exp-date {
+  font-size: 0.72rem; color: var(--gray);
+  background: var(--surface); padding: 0.3rem 0.8rem;
+  border: 1px solid var(--border); border-radius: 2px;
+  font-weight: 500; white-space: nowrap;
+}
+.exp-loc { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+.exp-bullets li {
+  font-size: 0.9rem; color: #444; padding-left: 1.4rem;
+  position: relative; line-height: 1.6;
+}
+.exp-bullets li::before {
+  content: '';
+  position: absolute; left: 0; top: 0.55em;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--mc-red);
+}
+
+.exp-tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.exp-tag {
+  font-size: 0.65rem; font-weight: 600; color: var(--black);
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 0.25rem 0.7rem; border-radius: 2px;
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* ── SKILLS MATCH ── */
+#skills { background: var(--white); }
+
+.skills-match-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+}
+.match-badge {
+  background: var(--black); color: var(--white);
+  font-size: 0.75rem; font-weight: 700;
+  padding: 0.5rem 1.2rem; border-radius: 2px;
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.match-badge span { color: var(--mc-yellow); font-size: 1rem; }
+
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 2px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+.skill-card-head {
+  display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;
+}
+.skill-icon { font-size: 1.3rem; }
+.skill-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--black); }
+.skill-mc-match { font-size: 0.62rem; color: var(--mc-red); font-weight: 600; margin-top: 0.1rem; }
+
+.skill-bar-wrap { margin-bottom: 0.8rem; }
+.skill-bar-label { display: flex; justify-content: space-between; margin-bottom: 0.3rem; font-size: 0.78rem; color: var(--gray); }
+.skill-bar-track { height: 4px; background: var(--light-gray); border-radius: 2px; overflow: hidden; }
+.skill-bar-fill { height: 100%; background: linear-gradient(90deg, var(--mc-red), var(--mc-orange)); border-radius: 2px; }
+
+/* ── PROJECTS ── */
+#projects { background: var(--surface); }
+
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+
+.proj-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  border-radius: 2px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.proj-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-4px); }
+
+.proj-card-top {
+  height: 6px;
+  background: linear-gradient(90deg, var(--mc-red), var(--mc-orange), var(--mc-yellow));
+}
+.proj-card-body { padding: 1.8rem; }
+
+.proj-num { font-size: 0.65rem; font-weight: 700; color: var(--mc-red); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.6rem; }
+.proj-title { font-size: 1rem; font-weight: 700; color: var(--black); margin-bottom: 0.8rem; line-height: 1.3; }
+.proj-desc { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+.proj-impact {
+  margin-top: 1rem;
+  background: var(--surface); border-left: 3px solid var(--mc-orange);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.8rem; color: var(--black); font-weight: 600;
+}
+
+/* ── PUBLICATIONS ── */
+#publications { background: var(--black); }
+#publications .section-eyebrow::before { background: var(--mc-yellow); }
+#publications .section-eyebrow { color: var(--mc-yellow); }
+#publications .section-title { color: var(--white); }
+
+.pub-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.pub-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 1.5rem 2rem;
+  display: flex; gap: 2rem; align-items: flex-start;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.pub-item:hover { background: rgba(255,255,255,0.08); }
+
+.pub-badge {
+  font-size: 0.62rem; font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 2px; white-space: nowrap; align-self: flex-start;
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.pub-ieee { background: rgba(235,0,27,0.2); color: var(--mc-red); border: 1px solid rgba(235,0,27,0.3); }
+.pub-patent { background: rgba(247,158,27,0.15); color: var(--mc-yellow); border: 1px solid rgba(247,158,27,0.25); }
+
+.pub-title { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.3rem; }
+.pub-meta { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+/* ── CERTIFICATIONS ── */
+#certifications { background: var(--white); }
+
+.certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+
+.cert-card {
+  background: var(--white);
+  padding: 1.4rem;
+  transition: background 0.2s;
+}
+.cert-card:hover { background: var(--surface); }
+.cert-org { font-size: 0.62rem; font-weight: 700; color: var(--mc-red); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 0.4rem; }
+.cert-name { font-size: 0.88rem; font-weight: 600; color: var(--black); line-height: 1.3; }
+.cert-year { font-size: 0.7rem; color: var(--gray); margin-top: 0.4rem; }
+.cert-check { color: var(--mc-red); font-size: 0.7rem; margin-top: 0.4rem; font-weight: 700; }
+
+/* ── ACHIEVEMENTS ── */
+#achievements { background: var(--surface); }
+
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+
+.ach-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  border-radius: 2px;
+  display: flex; flex-direction: column; gap: 0.6rem;
+  transition: box-shadow 0.2s;
+}
+.ach-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.ach-icon { font-size: 1.5rem; }
+.ach-title { font-size: 0.88rem; font-weight: 700; color: var(--black); line-height: 1.3; }
+.ach-detail { font-size: 0.78rem; color: var(--gray); }
+
+/* ── CONTACT ── */
+#contact { background: var(--black); }
+
+.contact-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 5rem 4rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+
+.contact-left .section-eyebrow::before { background: var(--mc-yellow); }
+.contact-left .section-eyebrow { color: var(--mc-yellow); }
+.contact-left .section-title { color: var(--white); margin-bottom: 1rem; }
+.contact-desc { font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-bottom: 2rem; }
+
+.contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+.contact-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.4rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px; text-decoration: none; color: var(--white);
+  font-size: 0.9rem; font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+.contact-link:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.15); }
+.contact-link-icon { font-size: 1rem; min-width: 20px; }
+.contact-link-val { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+
+.contact-right {
+  position: relative;
+}
+
+/* Big decorative circles */
+.deco-circles {
+  width: 320px; height: 320px; position: relative; margin: auto;
+}
+.deco-r {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: var(--mc-red); opacity: 0.9;
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+}
+.deco-y {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: var(--mc-yellow); opacity: 0.9;
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+}
+.deco-o {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: var(--mc-orange);
+  position: absolute; left: 50px; top: 50%; transform: translateY(-50%);
+  opacity: 0.65;
+}
+.deco-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 0.75rem; font-weight: 700; color: var(--white);
+  text-align: center; line-height: 1.4; z-index: 2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  letter-spacing: 0.06em; text-transform: uppercase;
+  width: 160px;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #111;
+  padding: 1.5rem 4rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.3); }
+.footer-mc { display: flex; align-items: center; gap: 0.6rem; }
+.footer-mc-text { font-size: 0.7rem; color: rgba(255,255,255,0.3); }
+.footer-logo { display: flex; position: relative; width: 32px; height: 20px; }
+.footer-circle-r { width: 20px; height: 20px; border-radius: 50%; background: var(--mc-red); position: absolute; left: 0; }
+.footer-circle-y { width: 20px; height: 20px; border-radius: 50%; background: var(--mc-yellow); position: absolute; right: 0; }
+.footer-circle-o { width: 20px; height: 20px; border-radius: 50%; background: var(--mc-orange); opacity: 0.8; position: absolute; left: 6px; }
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  #hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 7rem 1.5rem 4rem; }
+  .section-wrap { padding: 3.5rem 1.5rem; }
+  .why-mc-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .contact-right { display: none; }
+  footer { padding: 1.5rem; }
+  #why-mc { padding: 3rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="mc-logo">
+      <div class="mc-circle-r"></div>
+      <div class="mc-circle-o"></div>
+      <div class="mc-circle-y"></div>
+    </div>
+    <div>
+      <div class="nav-name">Gunmeet Singh</div>
+      <div class="nav-role">Security Analyst Portfolio</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Research</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-circles">
+    <div class="hero-circle-r"></div>
+    <div class="hero-circle-blend"></div>
+    <div class="hero-circle-y"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      Applying for — Mastercard Pune
+    </div>
+    <h1 class="hero-h1">GUNMEET<br>SINGH</h1>
+    <p class="hero-h1-sub">Cybersecurity Engineer</p>
+
+    <div class="hero-applying-for">
+      <div class="applying-label">Position Applied For</div>
+      <div class="applying-role">Security Logging &amp; Monitoring Compliance Analyst</div>
+      <div class="applying-loc">📍 Mastercard · Pune, Maharashtra · R-274716</div>
+    </div>
+
+    <p class="hero-desc">
+      SOC analyst and security engineer with <strong>hands-on experience in SIEM monitoring, log analysis, dark web monitoring, compliance, and incident response</strong> — across banking (RBI framework), defence (DRDO), and national cybercrime coordination (MHA/I4C). IEEE-published researcher. Patent holder.
+    </p>
+
+    <div class="hero-btns">
+      <a href="#experience" class="btn-red">View My Experience</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-stats-grid">
+      <div class="hero-stat">
+        <div class="stat-num"><span class="stat-accent">3+</span></div>
+        <div class="stat-label">Gov &amp; Defence Orgs</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num"><span class="stat-accent">2</span></div>
+        <div class="stat-label">IEEE Publications</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num"><span class="stat-accent">1</span></div>
+        <div class="stat-label">Patent Filed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num"><span class="stat-accent">8+</span></div>
+        <div class="stat-label">Certifications</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY MASTERCARD -->
+<section id="why-mc">
+  <div class="why-mc-inner">
+    <div>
+      <h2 class="why-mc-title">Why I'm the <span>right fit</span> for Mastercard</h2>
+    </div>
+    <div class="why-mc-points">
+      <div class="why-point">
+        <div class="why-point-icon">🔍</div>
+        <div class="why-point-text"><strong>SIEM & SOC Monitoring at scale</strong> — Operated SIEM & SOC tools(EDR, Darkweb Monitoring, Trellix, TechOwl Shield) for real-time and alert analysis across banking infrastructure, aligned with regulatory mandates.</div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">📋</div>
+        <div class="why-point-text"><strong>Compliance-first mindset</strong> — Processed and implemented RBI cybersecurity advisories, maintained audit-ready security documentation, and ensured controls met mandated reporting procedures.</div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">🤖</div>
+        <div class="why-point-text"><strong>Security automation</strong> — Scripted Python automation workflows for triage, fraud detection APIs at MHA/I4C, and network monitoring dashboards.</div>
+      </div>
+      <div class="why-point">
+        <div class="why-point-icon">🌐</div>
+        <div class="why-point-text"><strong>Multi-sector security exposure</strong> — Combination of banking, government (MHA), and defence (DRDO) security environments provides a breadth of threat context that maps directly to Mastercard's global financial infrastructure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap">
+    <p class="section-eyebrow">02 — Work History</p>
+    <h2 class="section-title">Professional Experience</h2>
+    <div class="exp-grid">
+
+      <div class="exp-card featured reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Janata Sahakari Bank Ltd. — Banking Sector</div>
+            <div class="exp-role">Cybersecurity Analyst</div>
+            <div class="exp-loc">📍 Pune, Maharashtra</div>
+          </div>
+          <div class="exp-date">Present</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Real-time SIEM monitoring, log analysis, and alert correlation across banking infrastructure.</li>
+          <li>Implemented RBI cybersecurity advisories and circulars; prepared audit-ready incident reports and security documentation.</li>
+          <li>Scripted Python automation workflows, reducing manual security triage time and improving analyst throughput.</li>
+          <li>Dark web intelligence monitoring to proactively identify leaked credentials and adversarial activity targeting the banking sector.</li>
+          <li>Escalated critical incidents following defined playbooks and RBI-mandated reporting procedures.</li>
+        </ul>
+        <div class="exp-tag-row">
+          <span class="exp-tag">Splunk</span><span class="exp-tag">MS Sentinel</span><span class="exp-tag">Log Analysis</span>
+          <span class="exp-tag">SIEM</span><span class="exp-tag">RBI Compliance</span><span class="exp-tag">Dark Web Intel</span>
+          <span class="exp-tag">Incident Response</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Indian Cybercrime Coordination Centre (I4C), MHA — Government</div>
+            <div class="exp-role">Cyber Fraud Analyst Intern</div>
+            <div class="exp-loc">📍 New Delhi, India</div>
+          </div>
+          <div class="exp-date">Dec 2024 – Feb 2025</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Analyzed national-scale cybercrime datasets to identify fraud patterns; produced reports presented directly to bank representatives.</li>
+          <li>Built automation scripts and APIs to detect and visualize digital fraud trends at scale across India.</li>
+          <li>Developed an AI-powered multilingual campaign (8+ languages), contributing to a measurable drop in digital arrest scam attempts nationally.</li>
+          <li>Coordinated with banks on I4C-flagged cybercrime issues, ensuring timely remediation and compliance follow-up.</li>
+        </ul>
+        <div class="exp-tag-row">
+          <span class="exp-tag">Fraud Analytics</span><span class="exp-tag">Python APIs</span>
+          <span class="exp-tag">Regulatory Reporting</span><span class="exp-tag">MHA</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">Defence Electronics Applications Laboratory (DRDO) — Defence</div>
+            <div class="exp-role">Cybersecurity Intern</div>
+            <div class="exp-loc">📍 Dehradun, India</div>
+          </div>
+          <div class="exp-date">Jul – Aug 2025</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Operated in classified Linux environments; conducted threat analysis in a defence-grade security context.</li>
+          <li>Built a centralized network monitoring dashboard tracking IP addresses, connected devices, and real-time traffic — directly improving threat visibility.</li>
+        </ul>
+        <div class="exp-tag-row">
+          <span class="exp-tag">Linux</span><span class="exp-tag">Network Monitoring</span>
+          <span class="exp-tag">Threat Analysis</span><span class="exp-tag">DRDO</span>
+        </div>
+      </div>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">DroneAcharya Aerial Innovations Limited — Defence Tech</div>
+            <div class="exp-role">R&D Engineer — UAV & Defence Systems</div>
+            <div class="exp-loc">📍 Pune, Maharashtra</div>
+          </div>
+          <div class="exp-date">Jul 2025 – Mar 2026</div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Integrated and tested autonomous UAV platforms with MAVLink telemetry and GPS-denied navigation using LiDAR and NVIDIA Jetson.</li>
+          <li>Researched swarm drone concepts including decentralized control and inter-drone communication for defence applications.</li>
+        </ul>
+        <div class="exp-tag-row">
+          <span class="exp-tag">Embedded Systems</span><span class="exp-tag">MAVLink</span>
+          <span class="exp-tag">NVIDIA Jetson</span><span class="exp-tag">Autonomous Systems</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS MATCH -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="skills-match-header">
+      <div>
+        <p class="section-eyebrow">03 — Capabilities</p>
+        <h2 class="section-title" style="margin-bottom:0">Skills</h2>
+      </div>
+      <div class="match-badge"><span>★</span></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-card reveal">
+        <div class="skill-card-head">
+          <div class="skill-icon">📊</div>
+          <div>
+            <div class="skill-title">SIEM & Log Monitoring</div>
+            <div class="skill-mc-match">↑ Core requirement of the role</div>
+          </div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Splunk</span><span>Familiar</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Microsoft Sentinel</span><span>Familiar</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Alert Correlation</span><span>Familiar</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-head">
+          <div class="skill-icon">📋</div>
+          <div>
+            <div class="skill-title">Compliance & Reporting</div>
+            <div class="skill-mc-match">↑ RBI → PCI-DSS alignment</div>
+          </div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Regulatory Frameworks (RBI)</span><span>Advanced</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Audit Documentation</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>MITRE ATT&CK</span><span>Familiar</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-head">
+          <div class="skill-icon">🔍</div>
+          <div>
+            <div class="skill-title">Threat Intelligence & IR</div>
+            <div class="skill-mc-match">↑ SOC experience directly applicable</div>
+          </div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Incident Response</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Dark Web Monitoring</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Threat Hunting</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:72%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-head">
+          <div class="skill-icon">🤖</div>
+          <div>
+            <div class="skill-title">Security Automation</div>
+            <div class="skill-mc-match">↑ Reduces manual triage workload</div>
+          </div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Python (scripting, APIs)</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Bash / Shell</span><span>Familiar</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Workflow Automation</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-head">
+          <div class="skill-icon">🌐</div>
+          <div>
+            <div class="skill-title">Networking & Forensics</div>
+            <div class="skill-mc-match">↑ Critical for log source understanding</div>
+          </div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Wireshark / Nmap</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>TCP/IP & Protocols</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Network Forensics</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:74%"></div></div>
+        </div>
+      </div>
+
+      <div class="skill-card reveal">
+        <div class="skill-card-head">
+          <div class="skill-icon">🛠️</div>
+          <div>
+            <div class="skill-title">Security Tools</div>
+            <div class="skill-mc-match">↑ Enterprise-grade toolset</div>
+          </div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>Burp Suite</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>VirusTotal / EDR</span><span>Proficient</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-label"><span>AWS Security</span><span>Familiar</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:62%"></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap">
+    <p class="section-eyebrow">04 — Portfolio</p>
+    <h2 class="section-title">Key Projects</h2>
+    <div class="projects-grid">
+      <div class="proj-card reveal">
+        <div class="proj-card-top"></div>
+        <div class="proj-card-body">
+          <div class="proj-num">PROJECT 01 — SOC / MONITORING</div>
+          <div class="proj-title">Network Monitoring & Security Dashboard</div>
+          <div class="proj-desc">Centralized dashboard for real-time visibility into IP activity, connected devices, network traffic, and offline malware scan results — built during DRDO internship to directly support SOC operations.</div>
+          <div class="proj-impact">⚡ Directly improved threat visibility for defence-grade infrastructure</div>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card-top"></div>
+        <div class="proj-card-body">
+          <div class="proj-num">PROJECT 02 — FRAUD DETECTION</div>
+          <div class="proj-title">National-Scale Cyber Fraud Detection System</div>
+          <div class="proj-desc">Built automation scripts and APIs at MHA/I4C to detect and visualize digital fraud trends at national scale. Included an AI-powered multilingual caller tune campaign across 8+ languages.</div>
+          <div class="proj-impact">⚡ Contributed to measurable drop in digital arrest scam attempts nationally</div>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card-top"></div>
+        <div class="proj-card-body">
+          <div class="proj-num">PROJECT 03 — AUTOMATION</div>
+          <div class="proj-title">Security Operations Workflow Automation</div>
+          <div class="proj-desc">Scripted Python-based automation workflows at Janata Sahakari Bank to streamline SIEM alert triage, RBI advisory processing, and compliance documentation — reducing manual analyst workload.</div>
+          <div class="proj-impact">⚡ Measurably reduced manual triage time in production SOC environment</div>
+        </div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-card-top"></div>
+        <div class="proj-card-body">
+          <div class="proj-num">PROJECT 04 — R&D</div>
+          <div class="proj-title">Multi-Drone Swarm with GPS-Denied Navigation</div>
+          <div class="proj-desc">Developed swarm drone systems with decentralized control and inter-drone communication for defence use — GPS-denied and RF-jammed environments. Used LiDAR, NVIDIA Jetson, and MAVLink telemetry.</div>
+          <div class="proj-impact">⚡ Patent filed: Autonomous multi-parcel delivery device (No. 202311088290)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-wrap">
+    <p class="section-eyebrow">05 — Research</p>
+    <h2 class="section-title">Publications & Patent</h2>
+    <div class="pub-list">
+      <div class="pub-item reveal">
+        <div class="pub-badge pub-ieee">IEEE</div>
+        <div>
+          <div class="pub-title">Comparative Analysis of Tracking Algorithms for Drone Monitoring Applications</div>
+          <div class="pub-meta">IEEE Publication · Peer-Reviewed · Published Research</div>
+        </div>
+      </div>
+      <div class="pub-item reveal">
+        <div class="pub-badge pub-ieee">IEEE</div>
+        <div>
+          <div class="pub-title">Developing a Prototype for Autonomous Drones</div>
+          <div class="pub-meta">IEEE Publication · Peer-Reviewed · Published Research</div>
+        </div>
+      </div>
+      <div class="pub-item reveal">
+        <div class="pub-badge pub-patent">Patent</div>
+        <div>
+          <div class="pub-title">Parcel Delivery Device — Autonomous Multi-Parcel Delivery to Multiple Locations</div>
+          <div class="pub-meta">Patent No. 202311088290 · Filed December 2023 · Government of India</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-wrap">
+    <p class="section-eyebrow">06 — Credentials</p>
+    <h2 class="section-title">Certifications</h2>
+    <div class="certs-grid reveal">
+      <div class="cert-card">
+        <div class="cert-org">Google · Coursera</div>
+        <div class="cert-name">Cybersecurity Professional</div>
+        <div class="cert-year">2025</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">IBM · Coursera</div>
+        <div class="cert-name">Cybersecurity Analyst</div>
+        <div class="cert-year">2025</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">NPTEL</div>
+        <div class="cert-name">Cyber Security Practitioners</div>
+        <div class="cert-year">2025</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">Infosys Springboard</div>
+        <div class="cert-name">Data Networking</div>
+        <div class="cert-year">2025</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">Intellipaat</div>
+        <div class="cert-name">AWS Cloud</div>
+        <div class="cert-year">2024</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">NPTEL · CU</div>
+        <div class="cert-name">Internet of Things (IoT)</div>
+        <div class="cert-year">2023</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">NPTEL</div>
+        <div class="cert-name">Cloud Computing</div>
+        <div class="cert-year">2022</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-org">Coincent</div>
+        <div class="cert-name">Cyber Security</div>
+        <div class="cert-year">2022</div>
+        <div class="cert-check">✓ Verified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-wrap">
+    <p class="section-eyebrow">07 — Recognition</p>
+    <h2 class="section-title">Achievements</h2>
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <div class="ach-icon">🏆</div>
+        <div class="ach-title">Best Project Award</div>
+        <div class="ach-detail">Autonomous Drone — Chandigarh University</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🥇</div>
+        <div class="ach-title">National Hackathon Winner</div>
+        <div class="ach-detail">Techno 1.0 National Hackathon</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🎯</div>
+        <div class="ach-title">Top 10 Nationally</div>
+        <div class="ach-detail">Project Innovation Contest, KIIT Odisha</div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-icon">🎓</div>
+        <div class="ach-title">6-Year Council Member</div>
+        <div class="ach-detail">University Student Council Leadership</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <p class="section-eyebrow">08 — Reach Out</p>
+      <h2 class="section-title">Let's Connect</h2>
+      <p class="contact-desc">
+        I'm actively pursuing the Security Logging & Monitoring Compliance Analyst role at Mastercard, Pune. If you're from the Mastercard hiring team or want to discuss my application, I'd love to hear from you.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:gmsingh0403@gmail.com" class="contact-link">
+          <span class="contact-link-icon">📧</span>
+          <div>
+            <div>Email</div>
+            <div class="contact-link-val">gmsingh0403@gmail.com</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/gunmeet-singh792b1a214" class="contact-link" target="_blank">
+          <span class="contact-link-icon">🔗</span>
+          <div>
+            <div>LinkedIn</div>
+            <div class="contact-link-val">linkedin.com/in/gunmeet-singh792b1a214</div>
+          </div>
+        </a>
+        <a href="tel:+918171025151" class="contact-link">
+          <span class="contact-link-icon">📞</span>
+          <div>
+            <div>Phone</div>
+            <div class="contact-link-val">+91 8171025151 · Pune, Maharashtra</div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="deco-circles">
+        <div class="deco-r"></div>
+        <div class="deco-o"></div>
+        <div class="deco-y"></div>
+        <div class="deco-text">Priceless<br>Security<br>Expertise</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2026 Gunmeet Singh · Security Analyst Portfolio · Pune, India</div>
+  <div class="footer-mc">
+    <span class="footer-mc-text">Crafted for</span>
+    <div class="footer-logo">
+      <div class="footer-circle-r"></div>
+      <div class="footer-circle-o"></div>
+      <div class="footer-circle-y"></div>
+    </div>
+    <span class="footer-mc-text">Mastercard</span>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
